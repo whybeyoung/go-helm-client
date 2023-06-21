@@ -771,6 +771,11 @@ func (c *HelmClient) GetChart(chartName string, chartPathOptions *action.ChartPa
 	return helmChart, chartPath, err
 }
 
+func (c *HelmClient) StatusRelease(release string) (*release.Release, error) {
+	return c.statusRelease(release)
+
+}
+
 // chartExists checks whether a chart is already installed
 // in a namespace or not based on the provided chart spec.
 // Note that this function only considers the contained chart name and namespace.
@@ -812,6 +817,13 @@ func (c *HelmClient) getRelease(name string) (*release.Release, error) {
 	getReleaseClient := action.NewGet(c.ActionConfig)
 
 	return getReleaseClient.Run(name)
+}
+
+// statusRelease returns a release matching the provided 'name'.
+func (c *HelmClient) statusRelease(name string) (*release.Release, error) {
+	statusReleaseClient := action.NewStatus(c.ActionConfig)
+
+	return statusReleaseClient.Run(name)
 }
 
 // rollbackRelease implicitly rolls back a release to the last revision.

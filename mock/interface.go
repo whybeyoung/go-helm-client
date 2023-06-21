@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	helmclient "github.com/mittwald/go-helm-client"
+	helmclient "github.com/whybeyoung/go-helm-client"
 	action "helm.sh/helm/v3/pkg/action"
 	chart "helm.sh/helm/v3/pkg/chart"
 	release "helm.sh/helm/v3/pkg/release"
@@ -212,6 +212,21 @@ func (m *MockClient) SetDebugLog(debugLog action.DebugLog) {
 func (mr *MockClientMockRecorder) SetDebugLog(debugLog interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetDebugLog", reflect.TypeOf((*MockClient)(nil).SetDebugLog), debugLog)
+}
+
+// StatusRelease mocks base method.
+func (m *MockClient) StatusRelease(name string) (*release.Release, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "StatusRelease", name)
+	ret0, _ := ret[0].(*release.Release)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// StatusRelease indicates an expected call of StatusRelease.
+func (mr *MockClientMockRecorder) StatusRelease(name interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StatusRelease", reflect.TypeOf((*MockClient)(nil).StatusRelease), name)
 }
 
 // TemplateChart mocks base method.
